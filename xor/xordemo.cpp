@@ -16,9 +16,9 @@ XORDemo::XORDemo()
 {
     gsl::index p{0};
 
-    for(unsigned int y{0}; y != height; ++y)
+    for(int y{0}; y != height; ++y)
     {
-        for(unsigned int x{0}; x != width; ++x)
+        for(int x{0}; x != width; ++x)
         {
             auto v = static_cast<sf::Uint8>((x ^ y) & 0xFF);
             m_pixels[p++] = v;

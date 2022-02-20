@@ -25,14 +25,15 @@ PlasmaDemo::PlasmaDemo()
                       m_palette.begin() + 128);
 
     // generate plasma
-    for(gsl::index y{0}; y != static_cast<gsl::index>(height); ++y)
+    for(int y{0}; y != height; ++y)
     {
-        for(gsl::index x{0}; x != static_cast<gsl::index>(width); ++x)
+        for(int x{0}; x != width; ++x)
         {
-            auto new_color = (std::cosf(static_cast<float>(x) * 0.1f)
+            auto color = (std::cosf(static_cast<float>(x) * 0.1f)
                 + std::sinf(static_cast<float>(y) * 0.1f)) * 63.5f + 128.0f;
-            m_indices[x + y * static_cast<gsl::index>(width)] =
-                static_cast<sf::Uint8>(new_color);
+
+            auto i = static_cast<gsl::index>(x + y * width);
+            m_indices[i] = static_cast<sf::Uint8>(color);
         }
     }
 }

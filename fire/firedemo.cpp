@@ -57,6 +57,7 @@ void FireDemo::animate()
         return m_dist(m_engine);
     });
 
+    {
     auto w{static_cast<gsl::index>(width)};
     auto h{static_cast<gsl::index>(height)};
 
@@ -71,14 +72,15 @@ void FireDemo::animate()
             gsl::index right   = ((x + 1) % w) + w * (y + 1);
             gsl::index twodown = x + w * ((y + 2) % h);
 
-            auto new_color = static_cast<float>(m_indices[left])
-                + static_cast<float>(m_indices[center])
-                + static_cast<float>(m_indices[right])
-                + static_cast<float>(m_indices[twodown]);
+            auto new_color{static_cast<float>(m_indices[left])};
+            new_color += static_cast<float>(m_indices[center]);
+            new_color += static_cast<float>(m_indices[right]);
+            new_color += static_cast<float>(m_indices[twodown]);
             new_color /= 4.03f;
 
             m_indices[x + w * y] = static_cast<sf::Uint8>(new_color);
         }
+    }
     }
 
     for(gsl::index p{0}; const auto i : m_indices)
