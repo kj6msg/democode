@@ -1,0 +1,5 @@
+Checks: 'bugprone-integer-division,bugprone-too-small-loop-variable,cppcoreguidelines-*,google-explicit-constructor,google-readability-casting,llvm-namespace-comment,modernize-*,-modernize-use-trailing-return-type'
+FormatStyle: 'file'
+CheckOptions:
+    - key: readability-magic-numbers.IgnorePowersOf2IntegerValues
+      value: 1
