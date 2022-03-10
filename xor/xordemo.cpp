@@ -3,10 +3,12 @@
 // Copyright (C) 2022 Ryan Clarke <kj6msg@icloud.com>
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <vector>
-#include <gsl/util>
-#include <SFML/Graphics.hpp>
 #include "xordemo.hpp"
+
+#include <SFML/Graphics.hpp>
+#include <gsl/util>
+
+#include <vector>
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -21,6 +23,7 @@ XORDemo::XORDemo()
         for(int x{0}; x != width; ++x)
         {
             auto v = static_cast<sf::Uint8>((x ^ y) & 0xFF);
+
             m_pixels[p++] = v;
             m_pixels[p++] = v;
             m_pixels[p++] = v;

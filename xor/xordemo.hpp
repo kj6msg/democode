@@ -12,12 +12,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 class XORDemo : public DemoApp
 {
-public:
+  public:
     XORDemo();
 
-private:
-    void animate() noexcept override {};
+  private:
+    void animate() noexcept override{};
 };
 
 
-#endif  // XORDEMO_HPP
+#endif   // XORDEMO_HPP

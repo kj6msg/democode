@@ -3,12 +3,14 @@
 // Copyright (C) 2022 Ryan Clarke <kj6msg@icloud.com>
 ////////////////////////////////////////////////////////////////////////////////
 
+#include "plasmademo.hpp"
+
+#include <SFML/Graphics.hpp>
+#include <gsl/util>
+
 #include <algorithm>
 #include <cmath>
 #include <vector>
-#include <gsl/util>
-#include <SFML/Graphics.hpp>
-#include "plasmademo.hpp"
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -22,17 +24,20 @@ PlasmaDemo::PlasmaDemo()
 
     // white (255, 255, 255) to black (0, 0, 0)
     std::reverse_copy(m_palette.begin(), m_palette.begin() + 128,
-                      m_palette.begin() + 128);
+        m_palette.begin() + 128);
 
     // generate plasma
     for(int y{0}; y != height; ++y)
     {
         for(int x{0}; x != width; ++x)
         {
-            auto color = (std::cosf(static_cast<float>(x) * 0.1f)
-                + std::sinf(static_cast<float>(y) * 0.1f)) * 63.5f + 128.0f;
+            auto color = (std::cosf(static_cast<float>(x) * 0.1f) +
+                             std::sinf(static_cast<float>(y) * 0.1f)) *
+                             63.5f +
+                         128.0f;
 
             auto i = static_cast<gsl::index>(x + y * width);
+
             m_indices[i] = static_cast<sf::Uint8>(color);
         }
     }

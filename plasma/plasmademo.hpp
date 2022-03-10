@@ -12,12 +12,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 class PlasmaDemo : public DemoApp
 {
-public:
+  public:
     PlasmaDemo();
 
-private:
+  private:
     void animate() override;
 };
 
 
-#endif  // PLASMADEMO_HPP
+#endif   // PLASMADEMO_HPP

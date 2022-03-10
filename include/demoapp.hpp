@@ -6,32 +6,32 @@
 #ifndef DEMOAPP_HPP
 #define DEMOAPP_HPP
 
-#include <vector>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+
+#include <vector>
 
 
 ////////////////////////////////////////////////////////////////////////////////
 class DemoApp
 {
-public:
+  public:
     static constexpr int width{320};
     static constexpr int height{200};
 
     DemoApp()
-        : m_palette(256),
-          m_indices(width * height),
+        : m_palette(256), m_indices(width * height),
           m_pixels(width * height * 4),
-          m_window(sf::VideoMode::getFullscreenModes().front(),
-                "Demo App", sf::Style::Fullscreen)
+          m_window(sf::VideoMode::getFullscreenModes().front(), "Demo App",
+              sf::Style::Fullscreen)
     {
         m_texture.create(width, height);
         m_texture.update(m_pixels.data());
         m_sprite.setTexture(m_texture);
 
-        m_window.setView(sf::View(sf::FloatRect(0.0f, 0.0f,
-            static_cast<float>(DemoApp::width),
-            static_cast<float>(DemoApp::height))));
+        m_window.setView(sf::View(
+            sf::FloatRect(0.0f, 0.0f, static_cast<float>(DemoApp::width),
+                static_cast<float>(DemoApp::height))));
         m_window.setFramerateLimit(60);
         m_window.setMouseCursorVisible(false);
     };
@@ -43,7 +43,7 @@ public:
             for(sf::Event event; m_window.pollEvent(event);)
             {
                 if(event.type == sf::Event::Closed)
-                        m_window.close();
+                    m_window.close();
             }
 
             animate();
@@ -54,7 +54,7 @@ public:
         }
     };
 
-protected:
+  protected:
     std::vector<sf::Color> m_palette;
     std::vector<sf::Uint8> m_indices;
     std::vector<sf::Uint8> m_pixels;
@@ -67,4 +67,4 @@ protected:
 };
 
 
-#endif  // DEMOAPP_HPP
+#endif   // DEMOAPP_HPP

@@ -3,14 +3,16 @@
 // Copyright (C) 2022 Ryan Clarke <kj6msg@icloud.com>
 ////////////////////////////////////////////////////////////////////////////////
 
+#include "firedemo.hpp"
+
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <gsl/util>
+
 #include <algorithm>
 #include <cmath>
 #include <random>
 #include <vector>
-#include <gsl/util>
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include "firedemo.hpp"
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -52,35 +54,33 @@ FireDemo::FireDemo() : m_engine(std::random_device{}()), m_dist(0, 255)
 void FireDemo::animate()
 {
     // generate hot spots on bottom row of pixels
-    std::generate(m_indices.end() - width, m_indices.end(), [&]()
-    {
-        return m_dist(m_engine);
-    });
+    std::generate(m_indices.end() - width, m_indices.end(),
+        [&]() { return m_dist(m_engine); });
 
     {
-    auto w{static_cast<gsl::index>(width)};
-    auto h{static_cast<gsl::index>(height)};
+        auto w{static_cast<gsl::index>(width)};
+        auto h{static_cast<gsl::index>(height)};
 
-    for(gsl::index y{0}; y != h - 1; ++y)
-    {
-        for(gsl::index x{0}; x != w; ++x)
+        for(gsl::index y{0}; y != h - 1; ++y)
         {
-            // Left below, right below, center below, and center two below
-            // pixels. The divisor controls the height of the fire.
-            gsl::index left    = ((x - 1 + w) % w) + w * (y + 1);
-            gsl::index center  = x + w * (y + 1);
-            gsl::index right   = ((x + 1) % w) + w * (y + 1);
-            gsl::index twodown = x + w * ((y + 2) % h);
+            for(gsl::index x{0}; x != w; ++x)
+            {
+                // Left below, right below, center below, and center two below
+                // pixels. The divisor controls the height of the fire.
+                gsl::index left    = ((x - 1 + w) % w) + w * (y + 1);
+                gsl::index center  = x + w * (y + 1);
+                gsl::index right   = ((x + 1) % w) + w * (y + 1);
+                gsl::index twodown = x + w * ((y + 2) % h);
 
-            auto new_color{static_cast<float>(m_indices[left])};
-            new_color += static_cast<float>(m_indices[center]);
-            new_color += static_cast<float>(m_indices[right]);
-            new_color += static_cast<float>(m_indices[twodown]);
-            new_color /= 4.03f;
+                auto new_color{static_cast<float>(m_indices[left])};
+                new_color += static_cast<float>(m_indices[center]);
+                new_color += static_cast<float>(m_indices[right]);
+                new_color += static_cast<float>(m_indices[twodown]);
+                new_color /= 4.03f;
 
-            m_indices[x + w * y] = static_cast<sf::Uint8>(new_color);
+                m_indices[x + w * y] = static_cast<sf::Uint8>(new_color);
+            }
         }
-    }
     }
 
     for(gsl::index p{0}; const auto i : m_indices)

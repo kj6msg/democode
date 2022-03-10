@@ -6,18 +6,20 @@
 #ifndef FIRE_HPP
 #define FIRE_HPP
 
-#include <random>
-#include <SFML/Config.hpp>
 #include "demoapp.hpp"
+
+#include <SFML/Config.hpp>
+
+#include <random>
 
 
 ////////////////////////////////////////////////////////////////////////////////
 class FireDemo : public DemoApp
 {
-public:
+  public:
     FireDemo();
 
-private:
+  private:
     std::default_random_engine m_engine;
     std::uniform_int_distribution<sf::Uint8> m_dist;
 
@@ -25,4 +27,4 @@ private:
 };
 
 
-#endif  // FIREDEMO_HPP
+#endif   // FIREDEMO_HPP
